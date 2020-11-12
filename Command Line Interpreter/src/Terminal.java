@@ -13,6 +13,7 @@ public class Terminal{
 	 * @throws IOException
 	 */
 	public void cp(String sourcePath, String destinationPath ) throws IOException {
+		
 	    InputStream is = null;
 	    OutputStream os = null;
 	    File source = new File(sourcePath+".txt");//creating a reference to the copied file 
@@ -43,6 +44,7 @@ public class Terminal{
 	 * @throws IOException
 	 */
 	public void mv(String sourcePath, String destinationPath)throws IOException {
+		
 	    InputStream is = null;
 	    OutputStream os = null;
 	    File source = new File(sourcePath+".txt");//creating a reference to the cut file 
