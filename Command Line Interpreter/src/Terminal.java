@@ -1,12 +1,17 @@
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.Reader;
 
 public class Terminal{
-    static String CurrentDirectory = "C:/";
+	static String CurrentDirectory = "C:/";
 	/**
 	 * 
 	 * @param sourcePath of the file that will be copied
@@ -122,5 +127,66 @@ public class Terminal{
             e.printStackTrace();
         }
     }
+    public void cat(String fileName,String fileName1) throws FileNotFoundException
+    {
+    	if(fileName1.equals("")) {
+    		BufferedReader br=new BufferedReader(new FileReader(fileName));
+    		try	 {
+    			String line;
+    			while((line=br.readLine())!=null) {
+    				System.out.println(line);
+    			}
+    			br.close();
+    		}
+    		catch (Exception e) {
+    			e.printStackTrace();
+    			//System.out.println("file Name isn't correct");
+			}
+    		
+    		}
+    	else {
+    		BufferedReader br=new BufferedReader(new FileReader(fileName));
+    		try	 {
+    			String line;
+    			while((line=br.readLine())!=null) {
+    				System.out.println(line);
+    			}
+    			br=new  BufferedReader(new FileReader(fileName1));
+    			while((line=br.readLine())!=null) {
+    				System.out.println(line);
+    			}
+    			br.close();
+    		}
+    		catch (Exception e) {
+    			System.out.println("file Name isn't correct");
+			}
+        	
+    	}
+    	}
+    	
+    public void rmdir(String fileName) throws FileNotFoundException
+    {	
+    	try {
+    		
+    		File file=new File(fileName);
+    		if(file.length()==0) {
+    			file.delete();
+    			System.out.println("file deleted Successfully");
+    		}
+    		else {
+    			System.out.println("file isn't empty");
+    		}
+    	}
+    	catch(Exception e){
+    		System.out.println("file name isn't correct");
+    	}
+    }
+    public void pwd()
+    {
+    	System.out.println(CurrentDirectory);
+    }
+    	
+    	
+    
 
 }
