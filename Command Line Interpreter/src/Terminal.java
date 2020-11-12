@@ -188,9 +188,6 @@ public class Terminal{
     	System.out.println(CurrentDirectory);
     }
     	
-    	
-    
-
     public void Help()
 	{
 		System.out.println("Clear  ----> Clears Command Line Interpreter");
