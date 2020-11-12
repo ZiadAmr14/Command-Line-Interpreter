@@ -1,9 +1,12 @@
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Scanner;
 
 public class Terminal{
     static String CurrentDirectory = "C:/";
@@ -71,9 +74,25 @@ public class Terminal{
 	    }
 	    
 	}
-	public void ls(String currentDirectory) {
-		
-	}
+	public void ls() throws IOException
+    {
+        try
+        {
+            File file = new File(CurrentDirectory);
+            File[] arrayOfFiles = file.listFiles();
+            for(File F : arrayOfFiles)
+            {
+                if(F.isDirectory() || F.isFile())
+                {
+                    System.out.println(F.getName());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 //	public void rm(String sourcePath); 
 //	public void pwd(); //display current user directory
 //	public void cat(String[] paths);  // print the file content & concatenate with other file(s) contents 
@@ -102,25 +121,4 @@ public class Terminal{
             e.printStackTrace();
         }
     }
-
-    public void List() throws IOException
-    {
-        try
-        {
-            File file = new File(CurrentDirectory);
-            File[] arrayOfFiles = file.listFiles();
-            for(File F : arrayOfFiles)
-            {
-                if(F.isDirectory() || F.isFile())
-                {
-                    System.out.println(F.getName());
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
 }
