@@ -7,8 +7,12 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
+<<<<<<< HEAD
 import java.io.PrintStream;
 import java.io.Reader;
+=======
+import java.util.Vector;
+>>>>>>> branch 'main' of https://github.com/ZiadAmr14/Command-Line-Interpreter.git
 
 public class Terminal{
 	static String CurrentDirectory = "C:/";
@@ -76,9 +80,7 @@ public class Terminal{
 	    }
 	    
 	}
-	public void ls(String currentDirectory) {
-		
-	}
+
 //	public void rm(String sourcePath); 
 //	public void pwd(); //display current user directory
 //	public void cat(String[] paths);  // print the file content & concatenate with other file(s) contents 
@@ -188,5 +190,52 @@ public class Terminal{
     	
     	
     
+
+    public void Help()
+	{
+		System.out.println("Clear  ----> Clears Command Line Interpreter");
+		System.out.println("cd Directory/File1/File2/..  ------------> Changes your Directory and points to your desired Directory");
+		System.out.println("ls  ----> List All files in your Current Directory");
+		System.out.println("pwd  ----------> Prints your Current Directory");
+		System.out.println("date    ---------------> Prints Current Date");
+		System.out.println("mkdir -p first/second/third  -----------> Makes a directory in your system with a parent file and children");
+		System.out.println("Rmdir ------>delete a directory in specfic path, Takes 1 Arguments which is the new Path of the directory");
+		System.out.println("Cat -----------------> Concatenate files and print on the standard output ");
+		System.out.println("more ------------> display and scroll down the output in one direction only ");
+		System.out.println("rm-------------> delete file , Takes 1 Arguments which is the Path of the file");
+		System.out.println("cp---------->copy the file to new directory, using Source Path and destination path ");
+		System.out.println("mv---------------> move the file to a new directory, using Source Path and destination Path");
+	}
+
+	public static void clear() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
+	public static String ShortPath(String string1)
+	{
+		boolean Flag = true;
+		String string2 = CurrentDirectory;
+		for (int i=0;i<string1.length();i++)
+		{
+			if(string1.charAt(i)==':')
+			{
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag == true)
+		{
+			string2 = CurrentDirectory +'/' + string1;
+			return  string2;
+		}
+		else
+		{
+			return string1;
+		}
+
+	}
+
+
 
 }
