@@ -7,13 +7,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
-<<<<<<< HEAD
 import java.io.PrintStream;
 import java.io.Reader;
-=======
 import java.util.Vector;
->>>>>>> branch 'main' of https://github.com/ZiadAmr14/Command-Line-Interpreter.git
-
 public class Terminal{
 	static String CurrentDirectory = "C:/";
 	/**
