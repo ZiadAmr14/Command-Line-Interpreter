@@ -40,6 +40,23 @@ public class Terminal{
 	        os.close();
 	    }
 	}
+	public void more(String sourceFile) throws IOException {
+		FileInputStream fstream = new FileInputStream(sourceFile+".txt");
+		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+		String strLine;
+		Scanner in = new Scanner(System.in);
+	    String enterKey = "";
+	    while(enterKey.isEmpty()) {
+		    for(int i=0;i<10;++i) {
+		    	if((strLine = br.readLine()) != null)   {
+		  		  System.out.println (strLine);
+		  		}
+		    }
+		    enterKey = in.nextLine();
+	    }
+	    fstream.close();
+	    in.close();
+	}
 	
 	/**
 	 * 
