@@ -196,7 +196,7 @@ public class Terminal{
 		System.out.println("pwd  ----------> Prints your Current Directory");
 		System.out.println("date    ---------------> Prints Current Date");
 		System.out.println("mkdir -p first/second/third  -----------> Makes a directory in your system with a parent file and children");
-		System.out.println("Rmdir ------>delete a directory in specfic path, Takes 1 Arguments which is the new Path of the directory");
+		System.out.println("Rmdir ------>delete a directory , Takes 1 Arguments which is the directory name and check if it empty and deletes it");
 		System.out.println("Cat -----------------> Concatenate files and print on the standard output ");
 		System.out.println("more ------------> display and scroll down the output in one direction only ");
 		System.out.println("rm-------------> delete file , Takes 1 Arguments which is the Path of the file");
