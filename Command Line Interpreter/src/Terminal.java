@@ -2,14 +2,16 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.Scanner;
-
+import java.io.PrintStream;
+import java.io.Reader;
+import java.util.Vector;
 public class Terminal{
-    static String CurrentDirectory = "C:/";
+	static String CurrentDirectory = "C:/";
 	/**
 	 * 
 	 * @param sourcePath of the file that will be copied
@@ -91,25 +93,6 @@ public class Terminal{
 	    }
 	    
 	}
-	public void ls() throws IOException
-    {
-        try
-        {
-            File file = new File(CurrentDirectory);
-            File[] arrayOfFiles = file.listFiles();
-            for(File F : arrayOfFiles)
-            {
-                if(F.isDirectory() || F.isFile())
-                {
-                    System.out.println(F.getName());
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
 //	public void rm(String sourcePath); 
 //	public void pwd(); //display current user directory
 //	public void cat(String[] paths);  // print the file content & concatenate with other file(s) contents 
@@ -138,4 +121,127 @@ public class Terminal{
             e.printStackTrace();
         }
     }
+
+    public void List() throws IOException
+    {
+        try
+        {
+            File file = new File(CurrentDirectory);
+            File[] arrayOfFiles = file.listFiles();
+            for(File F : arrayOfFiles)
+            {
+                if(F.isDirectory() || F.isFile())
+                {
+                    System.out.println(F.getName());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void cat(String fileName,String fileName1) throws FileNotFoundException
+    {
+    	if(fileName1.equals("")) {
+    		BufferedReader br=new BufferedReader(new FileReader(fileName));
+    		try	 {
+    			String line;
+    			while((line=br.readLine())!=null) {
+    				System.out.println(line);
+    			}
+    			br.close();
+    		}
+    		catch (Exception e) {
+    			e.printStackTrace();
+    			//System.out.println("file Name isn't correct");
+			}
+    		
+    		}
+    	else {
+    		BufferedReader br=new BufferedReader(new FileReader(fileName));
+    		try	 {
+    			String line;
+    			while((line=br.readLine())!=null) {
+    				System.out.println(line);
+    			}
+    			br=new  BufferedReader(new FileReader(fileName1));
+    			while((line=br.readLine())!=null) {
+    				System.out.println(line);
+    			}
+    			br.close();
+    		}
+    		catch (Exception e) {
+    			System.out.println("file Name isn't correct");
+			}
+        	
+    	}
+    	}
+    	
+    public void rmdir(String fileName) throws FileNotFoundException
+    {	
+    	try {
+    		
+    		File file=new File(fileName);
+    		if(file.length()==0) {
+    			file.delete();
+    			System.out.println("file deleted Successfully");
+    		}
+    		else {
+    			System.out.println("file isn't empty");
+    		}
+    	}
+    	catch(Exception e){
+    		System.out.println("file name isn't correct");
+    	}
+    }
+    public void pwd()
+    {
+    	System.out.println(CurrentDirectory);
+    }
+    	
+    public void Help()
+	{
+		System.out.println("Clear  ----> Clears Command Line Interpreter");
+		System.out.println("cd Directory/File1/File2/..  ------------> Changes your Directory and points to your desired Directory");
+		System.out.println("ls  ----> List All files in your Current Directory");
+		System.out.println("pwd  ----------> Prints your Current Directory");
+		System.out.println("date    ---------------> Prints Current Date");
+		System.out.println("mkdir -p first/second/third  -----------> Makes a directory in your system with a parent file and children");
+		System.out.println("Rmdir ------>delete a directory , Takes 1 Arguments which is the directory name and check if it empty and deletes it");
+		System.out.println("Cat -----------------> Concatenate files and print on the standard output ");
+		System.out.println("more ------------> display and scroll down the output in one direction only ");
+		System.out.println("rm-------------> delete file , Takes 1 Arguments which is the Path of the file");
+		System.out.println("cp---------->copy the file to new directory, using Source Path and destination path ");
+		System.out.println("mv---------------> move the file to a new directory, using Source Path and destination Path");
+	}
+
+	public static void clear() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
+	public static String ShortPath(String string1)
+	{
+		boolean Flag = true;
+		String string2 = CurrentDirectory;
+		for (int i=0;i<string1.length();i++)
+		{
+			if(string1.charAt(i)==':')
+			{
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag == true)
+		{
+			string2 = CurrentDirectory +'/' + string1;
+			return  string2;
+		}
+		else
+		{
+			return string1;
+		}
+
+	}
 }
