@@ -6,29 +6,29 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 public class Terminal{
-	ArrayList<Commands> allCommands ;
+	ArrayList<Parse> allCommands ;
 	static String CurrentDirectory = "C:/";
 	public Terminal() {
-		allCommands= new ArrayList<Commands>();
-		Commands c = new Commands("cp","arg1: SourcePath, arg2: DestinationPath");//
+		allCommands= new ArrayList<Parse>();
+		Parse c = new Parse("cp","arg1: SourcePath, arg2: DestinationPath");//
 		allCommands.add(c);
-		c=new Commands("ls","no args");
+		c=new Parse("ls","no args");
 		allCommands.add(c);
-		c=new Commands("more","arg1: SourceFile");
+		c=new Parse("more","arg1: SourceFile");
 		allCommands.add(c);
-		c=new Commands("mv","arg1: SourcePath, arg2: DestinationPath");
+		c=new Parse("mv","arg1: SourcePath, arg2: DestinationPath");
 		allCommands.add(c);
-		c=new Commands("mkdir","arg1: SourcePath");
+		c=new Parse("mkdir","arg1: SourcePath");
 		allCommands.add(c);
-		c=new Commands("args","arg1: commandName");
+		c=new Parse("args","arg1: commandName");
 		allCommands.add(c);
-		c=new Commands("date","no args");
+		c=new Parse("date","no args");
 		allCommands.add(c);
-		c = new Commands("cd","arg1: IntendedDirectory");
+		c = new Parse("cd","arg1: IntendedDirectory");
 		allCommands.add(c);
-		c = new Commands("help","no args");
+		c = new Parse("help","no args");
 		allCommands.add(c);
-		c = new Commands("clear","no args");
+		c = new Parse("clear","no args");
 		allCommands.add(c);
 	}
 	/*
@@ -204,7 +204,7 @@ public class Terminal{
     public void args(String commName) {
     	int commIndex=-1;
     	for (int i=0; i < allCommands.size(); i++) {
-			if(allCommands.get(i).commandName.equals(commName)) {
+			if(allCommands.get(i).cmdName.equals(commName)) {
 				allCommands.get(i).getArguments();
 				commIndex=i;
 				break;
