@@ -10,25 +10,25 @@ public class Terminal{
 	static String CurrentDirectory = "C:/";
 	public Terminal() {
 		allCommands= new ArrayList<Parse>();
-		Parse c = new Parse("cp","arg1: SourcePath, arg2: DestinationPath");//
+		Parse c = new Parse("cp","arg1: SourcePath, arg2: DestinationPath",2);//
 		allCommands.add(c);
-		c=new Parse("ls","no args");
+		c=new Parse("ls","no args",0);
 		allCommands.add(c);
-		c=new Parse("more","arg1: SourceFile");
+		c=new Parse("more","arg1: SourceFile",1);
 		allCommands.add(c);
-		c=new Parse("mv","arg1: SourcePath, arg2: DestinationPath");
+		c=new Parse("mv","arg1: SourcePath, arg2: DestinationPath",2);
 		allCommands.add(c);
-		c=new Parse("mkdir","arg1: SourcePath");
+		c=new Parse("mkdir","arg1: SourcePath",1);
 		allCommands.add(c);
-		c=new Parse("args","arg1: commandName");
+		c=new Parse("args","arg1: commandName",1);
 		allCommands.add(c);
-		c=new Parse("date","no args");
+		c=new Parse("date","no args",0);
 		allCommands.add(c);
-		c = new Parse("cd","arg1: IntendedDirectory");
+		c = new Parse("cd","arg1: IntendedDirectory",1);
 		allCommands.add(c);
-		c = new Parse("help","no args");
+		c = new Parse("help","no args",0);
 		allCommands.add(c);
-		c = new Parse("clear","no args");
+		c = new Parse("clear","no args",0);
 		allCommands.add(c);
 	}
 	/*
