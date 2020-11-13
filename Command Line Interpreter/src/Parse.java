@@ -1,14 +1,103 @@
 
 public class Parse {
-	String[] args; // Will be filled by arguments extracted by parse method 
-	String cmd; 
-	// Will be filled by the command extracted by parse method
-	/** * Return: true if it was able to parse user input correctly. Otherwise false 
-	 * Parameter input: user command 
-	 * In case of success, it should save the extracted command and arguments to args and cmd variables 
-	 * It should also print error messages in case of too few arguments for a commands 
-	 * eg. “cp requires 2 arguments” */ 
-//	public boolean parse(String input); 
-//	public String getCmd(); 
-//	public String[] getArguments();
+
+	public String arguments;
+	public String cmdName;
+	public int NoOfCmds;
+
+	private String[] arg = new String[100] ;
+
+	public Parse()
+	{
+		cmdName = new String("");
+		arguments = new String("");
+		NoOfCmds = 0;
+	}
+
+	public Parse(String Copy_CommandName,String Copy_CommandArgument,int Copy_NoOfCmds)
+	{
+		cmdName = Copy_CommandName;
+		arguments = Copy_CommandArgument;
+		NoOfCmds = Copy_NoOfCmds;
+	}
+
+	public void getArguments() {
+		System.out.println(arguments);
+	}
+
+	public String getCommand ()
+	{
+		return cmdName;
+	}
+
+	public boolean ZeroArgCmd(String Copy_CommandName, int Copy_NoOfCmds)
+	{
+		if(Copy_NoOfCmds == 1)
+		{
+			return true;
+		}
+		else
+		{
+			System.out.println("This Command Takes No Arguments");
+			return false;
+		}
+	}
+
+	public boolean OneArgCmd(String Copy_CommandName,int Copy_NoOfCmds)
+	{
+		if(Copy_NoOfCmds == 2)
+		{
+			return true;
+		}
+		else
+		{
+			System.out.println("This Command Takes One Argument");
+			return false;
+		}
+	}
+
+	public boolean TwoArgCmd(String Copy_CommandName,int Copy_NoOfCmds)
+	{
+		if(Copy_NoOfCmds == 3)
+		{
+			return true;
+		}
+		else
+		{
+			System.out.println("This Command Takes Two Arguments");
+			return false;
+		}
+	}
+
+	public boolean parse(String InputCommand)
+	{
+		boolean Cheker = false;
+		arg = InputCommand.split(" ");
+		cmdName = arg[0];
+
+		if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help"))
+		{
+			Cheker = ZeroArgCmd(cmdName , arg.length);
+		}
+		else if(cmdName.equals("more") ||cmdName.equals("rm") || cmdName.equals("mkdir") || cmdName.equals("rmdir") || cmdName.equals("args"))
+		{
+			Cheker = OneArgCmd(cmdName , arg.length);
+		}
+		else if(cmdName.equals("cb") || cmdName.equals("mv"))
+		{
+			Cheker = TwoArgCmd(cmdName , arg.length);
+		}
+
+		else if(cmdName.equals("cat"))
+		{
+			Cheker = true;
+		}
+
+		else
+		{
+			System.out.println("Invalid Command");
+		}
+		return  Cheker;
+	}
+
 }
