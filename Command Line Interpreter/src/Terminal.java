@@ -24,7 +24,12 @@ public class Terminal{
 		allCommands.add(c);
 		c=new Commands("date","no args");
 		allCommands.add(c);
-		
+		c = new Commands("cd","arg1: IntendedDirectory");
+		allCommands.add(c);
+		c = new Commands("help","no args");
+		allCommands.add(c);
+		c = new Commands("clear","no args");
+		allCommands.add(c);
 	}
 	/*
 	 * cd
