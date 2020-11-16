@@ -74,7 +74,7 @@ public class Parse {
 		arg = InputCommand.split(" ");
 		cmdName = arg[0];
 
-		if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help"))
+		if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help")|| cmdName.equals("pwd") ||cmdName.equals("ls"))
 		{
 			Cheker = ZeroArgCmd(cmdName , arg.length);
 		}
@@ -94,6 +94,8 @@ public class Parse {
 		else if(cmdName.equals("cat"))
 		{
 			Cheker = true;
+			twoArgs[0]=arg[1];
+			twoArgs[1]=arg[2];
 		}
 
 		else

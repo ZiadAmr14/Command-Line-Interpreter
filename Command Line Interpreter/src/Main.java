@@ -25,6 +25,10 @@ public class Main {
 				{
 					t1.help();
 				}
+				else if(p1.cmdName.equals("ls"))
+				{
+					t1.ls();
+				}
 				else if(p1.cmdName.equals("date"))
 				{
 					t1.date();
@@ -43,7 +47,7 @@ public class Main {
 				}
 				else if(p1.cmdName.equals("rm"))
 				{
-
+					t1.rm(p1.arguments);
 				}
 				else if(p1.cmdName.equals("mkdir"))
 				{
@@ -61,7 +65,7 @@ public class Main {
 				{
 					t1.cp(p1.twoArgs[0],p1.twoArgs[1]);
 				}
-				else if(p1.cmdName.equals("move"))
+				else if(p1.cmdName.equals("mv"))
 				{
 					t1.mv(p1.twoArgs[0],p1.twoArgs[1]);
 				}
