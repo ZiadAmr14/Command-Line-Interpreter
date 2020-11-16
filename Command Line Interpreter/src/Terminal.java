@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.Vector;
 public class Terminal{
 	ArrayList<Parse> allCommands ;
-	static String CurrentDirectory = "C:/";
+	static String CurrentDirectory = "C:\\";
 	public Terminal() {
 		allCommands= new ArrayList<Parse>();
 		Parse c = new Parse("cp","arg1: SourcePath, arg2: DestinationPath",2);//
@@ -41,6 +41,7 @@ public class Terminal{
 		
 	    InputStream is = null;
 	    OutputStream os = null;
+	    checkPath(sourcePath);
 	    File source = new File(sourcePath+".txt");//creating a reference to the copied file 
 	    String sourceFileName = source.getName();//get the name of the copied file to create new 
 	    //one in the destination path
@@ -56,6 +57,7 @@ public class Terminal{
 	        while ((length = is.read(buffer)) > 0) {
 	            os.write(buffer, 0, length);
 	        }
+
 	    } finally {
 	        is.close();
 	        os.close();
@@ -86,52 +88,18 @@ public class Terminal{
 	 * @throws IOException
 	 */
 	public void mv(String sourcePath, String destinationPath)throws IOException {
-		
-	    InputStream is = null;
-	    OutputStream os = null;
-	    File source = new File(sourcePath+".txt");//creating a reference to the cut file 
-	    String sourceFileName = source.getName();//get the name of the cut file to create new 
-	    //one in the destination path
-	    File dest = new File(destinationPath+"\\"+sourceFileName);
-	    //create the new file in the destination
-	    //with the same name
-
-	    try {
-	        is = new FileInputStream(source);
-	        os = new FileOutputStream(dest);
-	        byte[] buffer = new byte[1024];
-	        int length;
-	        while ((length = is.read(buffer)) > 0) {
-	            os.write(buffer, 0, length);
-	        }
-	    } finally {
-	        is.close();
-	        os.close();
-	        source.delete();
-
-	    }
-	    
+		cp(sourcePath,destinationPath);
+	    File source = new File(sourcePath+".txt");
+        source.delete();
+	}
+	public void rm(String sourcePath)throws IOException {
+	    File source = new File(sourcePath+".txt");
+        source.delete();
 	}
 
     public void cd(String Copy_IntendedDirectory)
     {
-        try{
-            File file = new File(Copy_IntendedDirectory);
-
-            if(file.isDirectory())
-            {
-                CurrentDirectory = Copy_IntendedDirectory;
-            }
-            else
-            {
-                System.out.println("Not A valid directory!");
-            }
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+        checkPath(Copy_IntendedDirectory);
     }
 
     public void ls() throws IOException
@@ -266,10 +234,39 @@ public class Terminal{
 		System.out.flush();
 	}
 
-	public static String ShortPath(String string1)
+//	public String ShortPath(String string1)
+//	{
+//		boolean Flag = true;
+//		String string2 = CurrentDirectory;
+//		for (int i=0;i<string1.length();i++)
+//		{
+//			if(string1.charAt(i)==':')
+//			{
+//				Flag = false;
+//				break;
+//			}
+//		}
+//		if(Flag == true)
+//		{
+//			string2 = CurrentDirectory +"\\" + string1;
+//			return  string2;
+//		}
+//		else
+//		{
+//			return string1;
+//		}
+//
+//	}
+	/**
+	 * 
+	 * @param string1
+	 * @return if flag equals true then this path is short, else then this path
+	 * is long 
+	 */
+	public static boolean ShortPath(String string1)
 	{
+		
 		boolean Flag = true;
-		String string2 = CurrentDirectory;
 		for (int i=0;i<string1.length();i++)
 		{
 			if(string1.charAt(i)==':')
@@ -278,15 +275,40 @@ public class Terminal{
 				break;
 			}
 		}
-		if(Flag == true)
-		{
-			string2 = CurrentDirectory +'/' + string1;
-			return  string2;
-		}
-		else
-		{
-			return string1;
-		}
+		return Flag;
 
 	}
+	public void checkPath(String Copy_IntendedDirectory) {
+		try{
+        	if(ShortPath(Copy_IntendedDirectory)) {
+                File file = new File(CurrentDirectory+Copy_IntendedDirectory);
+                if(file.exists())
+                {
+                	CurrentDirectory=file.getAbsolutePath();
+                }
+                else {
+                    System.out.println("Not A valid directory!");
+                }
+
+        	}
+        	else {
+                File file = new File(CurrentDirectory);
+                if(file.exists())
+                {
+            		CurrentDirectory = Copy_IntendedDirectory;
+                }
+                else {
+                    System.out.println("Not A valid directory!");
+                }
+
+        	}
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+	}
 }
+
+

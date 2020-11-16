@@ -4,9 +4,8 @@ public class Parse {
 	public String arguments;
 	public String cmdName;
 	public int NoOfCmds;
-
+	public String twoArgs[] = new String[2];
 	private String[] arg = new String[100] ;
-
 	public Parse()
 	{
 		cmdName = new String("");
@@ -75,22 +74,28 @@ public class Parse {
 		arg = InputCommand.split(" ");
 		cmdName = arg[0];
 
-		if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help"))
+		if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help")|| cmdName.equals("pwd") ||cmdName.equals("ls"))
 		{
 			Cheker = ZeroArgCmd(cmdName , arg.length);
 		}
-		else if(cmdName.equals("more") ||cmdName.equals("rm") || cmdName.equals("mkdir") || cmdName.equals("rmdir") || cmdName.equals("args"))
+		else if(cmdName.equals("more") ||cmdName.equals("cd") || cmdName.equals("rm") || cmdName.equals("mkdir") || cmdName.equals("rmdir") || cmdName.equals("args"))
 		{
 			Cheker = OneArgCmd(cmdName , arg.length);
+			arguments=arg[1];
 		}
-		else if(cmdName.equals("cb") || cmdName.equals("mv"))
+		else if(cmdName.equals("cp") || cmdName.equals("mv"))
 		{
 			Cheker = TwoArgCmd(cmdName , arg.length);
+			twoArgs[0]=arg[1];
+			twoArgs[1]=arg[2];
 		}
+
 
 		else if(cmdName.equals("cat"))
 		{
 			Cheker = true;
+			twoArgs[0]=arg[1];
+			twoArgs[1]=arg[2];
 		}
 
 		else
