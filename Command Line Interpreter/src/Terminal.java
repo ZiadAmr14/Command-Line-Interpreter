@@ -280,7 +280,7 @@ public class Terminal{
 		}
 		if(Flag == true)
 		{
-			string2 = CurrentDirectory +'/' + string1;
+			string2 = CurrentDirectory +"\\" + string1;
 			return  string2;
 		}
 		else
@@ -290,3 +290,5 @@ public class Terminal{
 
 	}
 }
+
+
