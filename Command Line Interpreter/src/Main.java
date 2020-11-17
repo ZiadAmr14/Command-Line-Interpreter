@@ -25,10 +25,6 @@ public class Main {
 				{
 					t1.help();
 				}
-				else if(p1.cmdName.equals("ls"))
-				{
-					t1.ls();
-				}
 				else if(p1.cmdName.equals("date"))
 				{
 					t1.date();
@@ -47,7 +43,11 @@ public class Main {
 				}
 				else if(p1.cmdName.equals("rm"))
 				{
-					t1.rm(p1.arguments);
+
+				}
+				else if(p1.cmdName.equals("ls"))
+				{
+					t1.ls();
 				}
 				else if(p1.cmdName.equals("mkdir"))
 				{
@@ -65,19 +65,19 @@ public class Main {
 				{
 					t1.cp(p1.twoArgs[0],p1.twoArgs[1]);
 				}
-				else if(p1.cmdName.equals("mv"))
+				else if(p1.cmdName.equals("move"))
 				{
 					t1.mv(p1.twoArgs[0],p1.twoArgs[1]);
 				}
 				else if(p1.cmdName.equals("cat"))
 				{
-					t1.cat(p1.twoArgs[0],p1.twoArgs[1]);
+					t1.cat(p1.twoArgs);
 				}
-			}
 			else if(p1.cmdName.equals("exit"))
 				break;
 		}
 
 	}
 
+}
 }

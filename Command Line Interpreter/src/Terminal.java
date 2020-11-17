@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
+
+import org.omg.CORBA.Current;
 public class Terminal{
 	ArrayList<Parse> allCommands ;
 	static String CurrentDirectory = "C:/";
@@ -50,10 +52,10 @@ public class Terminal{
 	 * @throws IOException
 	 */
 	public void cp(String sourcePath, String destinationPath ) throws IOException {
-		
+		ShortPath(sourcePath);
 	    InputStream is = null;
 	    OutputStream os = null;
-	    File source = new File(sourcePath+".txt");//creating a reference to the copied file 
+	    File source = new File(CurrentDirectory+".txt");//creating a reference to the copied file 
 	    String sourceFileName = source.getName();//get the name of the copied file to create new 
 	    //one in the destination path
 	    File dest = new File(destinationPath+"\\"+sourceFileName);
@@ -74,7 +76,8 @@ public class Terminal{
 	    }
 	}
 	public void more(String sourceFile) throws IOException {
-		FileInputStream fstream = new FileInputStream(sourceFile+".txt");
+		ShortPath(sourceFile);
+		FileInputStream fstream = new FileInputStream(CurrentDirectory+".txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 		String strLine;
 		Scanner in = new Scanner(System.in);
@@ -98,10 +101,10 @@ public class Terminal{
 	 * @throws IOException
 	 */
 	public void mv(String sourcePath, String destinationPath)throws IOException {
-		
-	    InputStream is = null;
+	    ShortPath(sourcePath);
+		InputStream is = null;
 	    OutputStream os = null;
-	    File source = new File(sourcePath+".txt");//creating a reference to the cut file 
+	    File source = new File(CurrentDirectory+".txt");//creating a reference to the cut file 
 	    String sourceFileName = source.getName();//get the name of the cut file to create new 
 	    //one in the destination path
 	    File dest = new File(destinationPath+"\\"+sourceFileName);
@@ -127,12 +130,17 @@ public class Terminal{
 
     public void cd(String Copy_IntendedDirectory)
     {
+    	if(Copy_IntendedDirectory.equals("..")){
+    		File file = new File(CurrentDirectory);
+            CurrentDirectory=file.getParentFile().getPath();
+    	}
+    	else
+    	{
         try{
             File file = new File(Copy_IntendedDirectory);
-
-            if(file.isDirectory())
+            if(file.exists()&&file.isDirectory())
             {
-                CurrentDirectory = Copy_IntendedDirectory;
+            	ShortPath(Copy_IntendedDirectory);
             }
             else
             {
@@ -144,6 +152,7 @@ public class Terminal{
         {
             e.printStackTrace();
         }
+    	}
     }
 
     public void ls() throws IOException
@@ -165,42 +174,32 @@ public class Terminal{
             e.printStackTrace();
         }
     }
-    public void cat(String fileName,String fileName1) throws FileNotFoundException
+    public void cat(String[] filename) throws FileNotFoundException
     {
-    	if(fileName1.equals("")) {
-    		BufferedReader br=new BufferedReader(new FileReader(fileName));
-    		try	 {
-    			String line;
-    			while((line=br.readLine())!=null) {
-    				System.out.println(line);
+    	
+    			try 
+    			{
+    				
+    				
+    				for(int i=0;i<filename.length;i++) {
+    					
+    					BufferedReader br=new BufferedReader(new FileReader(CurrentDirectory+'\\'+filename[i]));
+    					if(filename[i]!=null) {
+    					String line;
+    		    			while((line=br.readLine())!=null) {
+    		    				System.out.println(line);
+    		    			}
+    		    			br.close();
+    					}
+    					else
+    						break;
+    				}
     			}
-    			br.close();
-    		}
-    		catch (Exception e) {
-    			e.printStackTrace();
-    			//System.out.println("file Name isn't correct");
-			}
-    		
-    		}
-    	else {
-    		BufferedReader br=new BufferedReader(new FileReader(fileName));
-    		try	 {
-    			String line;
-    			while((line=br.readLine())!=null) {
-    				System.out.println(line);
-    			}
-    			br=new  BufferedReader(new FileReader(fileName1));
-    			while((line=br.readLine())!=null) {
-    				System.out.println(line);
-    			}
-    			br.close();
-    		}
-    		catch (Exception e) {
-    			System.out.println("file Name isn't correct");
-			}
-        	
-    	}
+    			catch (Exception e) {
+    				
+					}
     }
+    
     public void args(String commName) {
     	int commIndex=-1;
     	for (int i=0; i < allCommands.size(); i++) {
@@ -215,8 +214,8 @@ public class Terminal{
     	}
     	return;
     }
-    public void mkdir(String dirPath) {
-        File newDir = new File(dirPath); 
+    public void mkdir(String dirname) {
+        File newDir = new File(dirname); 
   
         if (newDir.mkdir()) { 
   
@@ -234,8 +233,7 @@ public class Terminal{
     public void rmdir(String fileName) throws FileNotFoundException
     {	
     	try {
-    		
-    		File file=new File(fileName);
+    		File file=new File(CurrentDirectory+'\\'+fileName);
     		if(file.length()==0) {
     			file.delete();
     			System.out.println("file deleted Successfully");
@@ -278,27 +276,24 @@ public class Terminal{
 		System.out.flush();
 	}
 
-	public static String ShortPath(String string1)
+	public static void ShortPath(String string1)
 	{
 		boolean Flag = true;
-		String string2 = CurrentDirectory;
 		for (int i=0;i<string1.length();i++)
 		{
 			if(string1.charAt(i)==':')
 			{
 				Flag = false;
+				CurrentDirectory=string1;
 				break;
 			}
 		}
 		if(Flag == true)
 		{
-			string2 = CurrentDirectory +'/' + string1;
-			return  string2;
+			CurrentDirectory+= '\\' + string1;
+
 		}
-		else
-		{
-			return string1;
-		}
+		
 
 	}
 }

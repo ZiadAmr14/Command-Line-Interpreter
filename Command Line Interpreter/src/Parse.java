@@ -1,10 +1,9 @@
-
 public class Parse {
 
 	public String arguments;
 	public String cmdName;
 	public int NoOfCmds;
-	public String twoArgs[] = new String[2];
+	public String twoArgs[] = new String[10];
 	private String[] arg = new String[100] ;
 	public Parse()
 	{
@@ -73,8 +72,8 @@ public class Parse {
 		boolean Cheker = false;
 		arg = InputCommand.split(" ");
 		cmdName = arg[0];
-
-		if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help")|| cmdName.equals("pwd") ||cmdName.equals("ls"))
+		
+		 if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help")|| cmdName.equals("pwd")|| cmdName.equals("ls"))
 		{
 			Cheker = ZeroArgCmd(cmdName , arg.length);
 		}
@@ -94,8 +93,11 @@ public class Parse {
 		else if(cmdName.equals("cat"))
 		{
 			Cheker = true;
-			twoArgs[0]=arg[1];
-			twoArgs[1]=arg[2];
+			int l=1;
+			for(int i=0;i<(arg.length-1);i++) {
+				twoArgs[i]=arg[l];
+				l++;
+			}
 		}
 
 		else
