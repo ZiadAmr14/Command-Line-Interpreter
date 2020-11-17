@@ -65,7 +65,7 @@ public class Main {
 				{
 					t1.cp(p1.twoArgs[0],p1.twoArgs[1]);
 				}
-				else if(p1.cmdName.equals("move"))
+				else if(p1.cmdName.equals("mv"))
 				{
 					t1.mv(p1.twoArgs[0],p1.twoArgs[1]);
 				}
@@ -79,5 +79,5 @@ public class Main {
 
 	}
 
-}
+	}
 }

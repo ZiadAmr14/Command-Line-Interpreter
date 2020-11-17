@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 
-import org.omg.CORBA.Current;
 public class Terminal{
 	ArrayList<Parse> allCommands ;
 	static String CurrentDirectory = "C:/";
@@ -33,18 +32,7 @@ public class Terminal{
 		c = new Parse("clear","no args",0);
 		allCommands.add(c);
 	}
-	/*
-	 * cd
-	 * cat
-	 * Pipe Operator
-	 * Redirect Operator <
-	 * Redirect Operator <<
-	 * rmdir
-	 * rm
-	 * help
-	 * pwd
-	 * clear
-	 */
+	
 	/**
 	 * 
 	 * @param sourcePath of the file that will be copied
@@ -101,11 +89,11 @@ public class Terminal{
 	 * @throws IOException
 	 */
 	public void mv(String sourcePath, String destinationPath)throws IOException {
-	    ShortPath(sourcePath);
-		InputStream is = null;
+		ShortPath(sourcePath);
+	    InputStream is = null;
 	    OutputStream os = null;
-	    File source = new File(CurrentDirectory+".txt");//creating a reference to the cut file 
-	    String sourceFileName = source.getName();//get the name of the cut file to create new 
+	    File source = new File(CurrentDirectory+".txt");//creating a reference to the copied file 
+	    String sourceFileName = source.getName();//get the name of the copied file to create new 
 	    //one in the destination path
 	    File dest = new File(destinationPath+"\\"+sourceFileName);
 	    //create the new file in the destination
@@ -122,8 +110,7 @@ public class Terminal{
 	    } finally {
 	        is.close();
 	        os.close();
-	        source.delete();
-
+		    source.delete();
 	    }
 	    
 	}
@@ -137,7 +124,14 @@ public class Terminal{
     	else
     	{
         try{
-            File file = new File(Copy_IntendedDirectory);
+        	File file;
+        	if(isShortPath(Copy_IntendedDirectory)) {
+        		file = new File(CurrentDirectory+Copy_IntendedDirectory);
+        	}
+        	else {
+        		file = new File(Copy_IntendedDirectory);
+        	}
+            
             if(file.exists()&&file.isDirectory())
             {
             	ShortPath(Copy_IntendedDirectory);
@@ -276,8 +270,16 @@ public class Terminal{
 		System.out.flush();
 	}
 
-	public static void ShortPath(String string1)
+	public void ShortPath(String string1)
 	{
+		boolean Flag = isShortPath(string1);
+		if(Flag == true)
+		{
+			CurrentDirectory+= '\\' + string1;
+
+		}
+	}
+	public boolean isShortPath(String string1) {
 		boolean Flag = true;
 		for (int i=0;i<string1.length();i++)
 		{
@@ -288,12 +290,6 @@ public class Terminal{
 				break;
 			}
 		}
-		if(Flag == true)
-		{
-			CurrentDirectory+= '\\' + string1;
-
-		}
-		
-
+		return Flag;
 	}
 }
