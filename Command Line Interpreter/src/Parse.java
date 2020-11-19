@@ -1,3 +1,5 @@
+package CMD;
+
 public class Parse {
 
 	public String arguments;
@@ -73,7 +75,7 @@ public class Parse {
 		arg = InputCommand.split(" ");
 		cmdName = arg[0];
 		
-		 if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help")|| cmdName.equals("pwd")|| cmdName.equals("ls"))
+		 if(cmdName.equals("date") ||  cmdName.equals("clear")  || cmdName.equals("help")|| cmdName.equals("pwd"))
 		{
 			Cheker = ZeroArgCmd(cmdName , arg.length);
 		}
@@ -82,13 +84,20 @@ public class Parse {
 			Cheker = OneArgCmd(cmdName , arg.length);
 			arguments=arg[1];
 		}
-		else if(cmdName.equals("cp") || cmdName.equals("mv"))
+		else if(cmdName.equals("cp") || cmdName.equals("mv") )
 		{
 			Cheker = TwoArgCmd(cmdName , arg.length);
 			twoArgs[0]=arg[1];
 			twoArgs[1]=arg[2];
 		}
-
+		else if(cmdName.equals("ls")) {
+			Cheker = true;
+			int l=1;
+			for(int i=0;i<(arg.length-1);i++) {
+				twoArgs[i]=arg[l];
+				l++;
+			}
+		}
 
 		else if(cmdName.equals("cat"))
 		{

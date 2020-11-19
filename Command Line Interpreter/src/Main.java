@@ -1,3 +1,5 @@
+package CMD;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -15,7 +17,10 @@ public class Main {
 		while (true)
 		{
 			String s = in.nextLine();
-			if(p1.parse(s))
+			if(s.equalsIgnoreCase("z")) {
+				break;
+			}
+			else if(p1.parse(s))
 			{
 				if(p1.cmdName.equals("pwd"))
 				{
@@ -43,11 +48,11 @@ public class Main {
 				}
 				else if(p1.cmdName.equals("rm"))
 				{
-
+					t1.rm(p1.arguments);
 				}
 				else if(p1.cmdName.equals("ls"))
 				{
-					t1.ls();
+					t1.ls(p1.twoArgs);
 				}
 				else if(p1.cmdName.equals("mkdir"))
 				{
@@ -73,8 +78,6 @@ public class Main {
 				{
 					t1.cat(p1.twoArgs);
 				}
-			else if(p1.cmdName.equals("exit"))
-				break;
 		}
 
 	}
